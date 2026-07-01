@@ -190,3 +190,110 @@
 </script>
 </body>
 </html>
+
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f4f7fb;
+    font-family:'Inter',sans-serif;
+}
+
+.auth-wrapper{
+    width:95%;
+    max-width:1200px;
+    min-height:720px;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:stretch;
+    background:#fff;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.15);
+}
+
+.auth-visual{
+    flex:1;
+    background:linear-gradient(135deg,#2563eb,#0ea5e9);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:60px;
+}
+
+.auth-visual .content{
+    max-width:420px;
+}
+
+.auth-form-side{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:60px;
+    background:#fff;
+}
+
+.auth-card{
+    width:100%;
+    max-width:560px;
+}
+
+.form-step{
+    display:none;
+}
+
+.form-step.active{
+    display:block;
+}
+
+.btn-block{
+    width:100%;
+}
+
+.step-indicator{
+    display:flex;
+    gap:10px;
+    margin:25px 0 35px;
+}
+
+.step-indicator .dot{
+    flex:1;
+    height:6px;
+    background:#ddd;
+    border-radius:50px;
+}
+
+.step-indicator .dot.active{
+    background:#2563eb;
+}
+
+@media(max-width:991px){
+
+body{
+    display:block;
+}
+
+.auth-wrapper{
+    flex-direction:column;
+    width:95%;
+    min-height:auto;
+    margin:30px auto;
+}
+
+.auth-visual{
+    display:none !important;
+}
+
+.auth-form-side{
+    padding:35px 25px;
+}
+
+.auth-card{
+    max-width:100%;
+}
+
+}
