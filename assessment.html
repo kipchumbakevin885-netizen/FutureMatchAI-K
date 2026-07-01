@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Assessment — FutureMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/dashboard.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body class="app-body">
+
+<div id="loading-screen">
+  <div class="loader-logo"><i class="fa-solid fa-diagram-project"></i> FutureMatch AI</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="sidebar-overlay"></div>
+
+<div class="app-shell">
+  <aside class="app-sidebar">
+    <div class="sidebar-brand"><span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span> FutureMatch AI</div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html"><i class="fa-solid fa-grid-2"></i> Dashboard</a></li>
+      <li><a href="assessment.html" class="active"><i class="fa-solid fa-clipboard-question"></i> Skill Assessment</a></li>
+      <li><a href="careers.html"><i class="fa-solid fa-compass"></i> Career Matches</a></li>
+      <li><a href="jobs.html"><i class="fa-solid fa-briefcase"></i> Jobs &amp; Internships</a></li>
+      <li class="nav-section-label">Account</li>
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Landing Page</a></li>
+      <li><a href="#" data-logout><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
+    </ul>
+  </aside>
+
+  <div class="app-main">
+    <header class="app-topbar">
+      <button class="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="fw-bold">Skill Assessment</div>
+      <div class="topbar-actions">
+        <button class="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <div class="assessment-wrap">
+
+        <!-- Intro -->
+        <div id="quizIntro" class="text-center reveal">
+          <span class="section-eyebrow">8 Quick Questions</span>
+          <h2 class="section-title">Discover careers that match who you are</h2>
+          <p class="section-subtitle mx-auto mb-4">Answer honestly — there are no wrong answers. This takes about 2 minutes and sharpens your AI career matches.</p>
+          <button class="btn btn-primary btn-lg" onclick="startQuiz()">Start Assessment <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <!-- Quiz -->
+        <div id="quizArea" style="display:none;">
+          <div class="quiz-progress"><div class="fill" id="quizProgressFill" style="width:0%;"></div></div>
+          <div class="quiz-card">
+            <div class="quiz-question-num" id="quizQNum">Question 1 of 8</div>
+            <h3 class="quiz-question" id="quizQuestionText"></h3>
+            <div class="quiz-options" id="quizOptions"></div>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div id="quizResult" style="display:none;" class="text-center">
+          <div class="quiz-result-score">
+            <span class="num" id="resultScore">0%</span>
+          </div>
+          <h2 class="mb-2">Assessment Complete!</h2>
+          <p class="text-muted mb-4" id="resultSummary">Here's your top career match based on your answers.</p>
+          <div class="widget-card mb-4 text-start" style="max-width:480px;margin:0 auto;">
+            <div class="career-mini-card" id="resultTopCareer" style="margin:0;border:none;padding:0;"></div>
+          </div>
+          <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="careers.html" class="btn btn-primary">View All Career Matches <i class="fa-solid fa-arrow-right"></i></a>
+            <button class="btn btn-outline" onclick="location.reload()">Retake Assessment</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/app.js"></script>
+<script>
+  requireAuth();
+  let currentQuestion = 0;
+  const answers = [];
+
+  function startQuiz() {
+    document.getElementById("quizIntro").style.display = "none";
+    document.getElementById("quizArea").style.display = "block";
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const q = QUIZ_QUESTIONS[currentQuestion];
+    document.getElementById("quizQNum").textContent = `Question ${currentQuestion + 1} of ${QUIZ_QUESTIONS.length}`;
+    document.getElementById("quizQuestionText").textContent = q.question;
+    document.getElementById("quizProgressFill").style.width = `${(currentQuestion / QUIZ_QUESTIONS.length) * 100}%`;
+
+    const optionsEl = document.getElementById("quizOptions");
+    const letters = ["A", "B", "C", "D"];
+    optionsEl.innerHTML = q.options.map((opt, i) => `
+      <div class="quiz-option" onclick="selectAnswer(${i})">
+        <span class="opt-letter">${letters[i]}</span> ${opt.text}
+      </div>
+    `).join("");
+  }
+
+  function selectAnswer(index) {
+    const q = QUIZ_QUESTIONS[currentQuestion];
+    answers.push({ questionId: q.id, selectedTags: q.options[index].tags });
+    currentQuestion++;
+    if (currentQuestion < QUIZ_QUESTIONS.length) {
+      renderQuestion();
+    } else {
+      finishQuiz();
+    }
+  }
+
+  function finishQuiz() {
+    document.getElementById("quizProgressFill").style.width = "100%";
+    document.getElementById("quizArea").style.display = "none";
+    document.getElementById("quizResult").style.display = "block";
+
+    const profile = FMAuth.getUser();
+    const tagCounts = FutureMatchAI_Engine.scoreQuizAnswers(answers);
+    const updatedProfile = FMAuth.updateUser({ assessmentTagCounts: tagCounts, assessmentCompleted: true });
+
+    const overall = FutureMatchAI_Engine.overallMatchScore(updatedProfile);
+    const top = FutureMatchAI_Engine.recommendCareers(updatedProfile, 1)[0];
+
+    document.getElementById("resultScore").textContent = overall + "%";
+    document.getElementById("resultSummary").textContent =
+      `Based on your answers, your strongest career alignment is in ${top.field.toLowerCase()} roles.`;
+
+    document.getElementById("resultTopCareer").innerHTML = `
+      <div class="career-mini-icon"><i class="${top.icon}"></i></div>
+      <div class="flex-grow-1">
+        <div class="fw-bold">${top.title}</div>
+        <div class="text-muted" style="font-size:0.8rem;">${top.salaryRange}</div>
+      </div>
+      <div class="match-pct">${top.matchScore}%</div>
+    `;
+  }
+</script>
+</body>
+</html>

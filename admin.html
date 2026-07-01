@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — FutureMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/dashboard.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body class="app-body">
+
+<div id="loading-screen">
+  <div class="loader-logo"><i class="fa-solid fa-diagram-project"></i> FutureMatch AI</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="sidebar-overlay"></div>
+
+<div class="app-shell">
+  <aside class="app-sidebar">
+    <div class="sidebar-brand"><span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span> FutureMatch AI</div>
+    <ul class="sidebar-nav">
+      <li><a href="admin.html" class="active"><i class="fa-solid fa-grid-2"></i> Overview</a></li>
+      <li><a href="#students"><i class="fa-solid fa-user-graduate"></i> Students</a></li>
+      <li><a href="#employers"><i class="fa-solid fa-building"></i> Employers</a></li>
+      <li><a href="#reports"><i class="fa-solid fa-file-lines"></i> Reports</a></li>
+      <li class="nav-section-label">Account</li>
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Landing Page</a></li>
+      <li><a href="#" data-logout><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
+    </ul>
+  </aside>
+
+  <div class="app-main">
+    <header class="app-topbar">
+      <button class="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="fw-bold">Admin Dashboard</div>
+      <div class="topbar-actions">
+        <button class="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+        <div class="topbar-profile"><div class="topbar-avatar">AD</div></div>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <div class="welcome-banner reveal">
+        <h2 class="text-white mb-2">Platform Overview</h2>
+        <p class="text-white-50 mb-0">Monitor FutureMatch AI's growth, engagement and hiring outcomes across Kenya.</p>
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile"><div class="stat-icon" style="background:var(--gradient-primary);"><i class="fa-solid fa-user-graduate"></i></div><div><div class="stat-val" data-counter="12480">0</div><div class="stat-lbl">Total Students</div></div></div>
+        </div>
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile"><div class="stat-icon" style="background:linear-gradient(135deg,#14B8A6,#2563EB);"><i class="fa-solid fa-building"></i></div><div><div class="stat-val" data-counter="340">0</div><div class="stat-lbl">Employers</div></div></div>
+        </div>
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile"><div class="stat-icon" style="background:linear-gradient(135deg,#F59E0B,#EF4444);"><i class="fa-solid fa-briefcase"></i></div><div><div class="stat-val" data-counter="1860">0</div><div class="stat-lbl">Jobs Posted</div></div></div>
+        </div>
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile"><div class="stat-icon" style="background:linear-gradient(135deg,#8B5CF6,#2563EB);"><i class="fa-solid fa-percent"></i></div><div><div class="stat-val" data-counter="78">0</div><div class="stat-lbl">Placement Rate %</div></div></div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-lg-7">
+          <div class="chart-card h-100" id="students">
+            <h5 class="mb-3"><i class="fa-solid fa-chart-column text-primary me-2"></i>Student Growth (Monthly)</h5>
+            <div style="height:280px;"><canvas id="adminGrowthChart"></canvas></div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="chart-card h-100">
+            <h5 class="mb-3"><i class="fa-solid fa-chart-pie text-primary me-2"></i>Students by Field</h5>
+            <div style="height:280px;"><canvas id="adminFieldChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+          <div class="chart-card h-100" id="employers">
+            <h5 class="mb-3"><i class="fa-solid fa-building text-primary me-2"></i>Employer Growth</h5>
+            <div style="height:240px;"><canvas id="adminEmployerChart"></canvas></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="chart-card h-100">
+            <h5 class="mb-3"><i class="fa-solid fa-arrow-trend-up text-primary me-2"></i>Employment Trends</h5>
+            <div style="height:240px;"><canvas id="adminEmploymentChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget-card" id="reports">
+        <div class="widget-header d-flex justify-content-between align-items-center">
+          <h5><i class="fa-solid fa-file-lines text-primary me-2"></i>Recent Platform Activity</h5>
+          <button class="btn btn-outline btn-sm" onclick="alert('Report exported as PDF (demo).')"><i class="fa-solid fa-download"></i> Export Report</button>
+        </div>
+        <div class="table-responsive">
+          <table class="table data-table mb-0">
+            <thead><tr><th>Institution</th><th>Students</th><th>Top Field</th><th>Placement Rate</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Kabete National Polytechnic</td><td>2,140</td><td>ICT</td><td>81%</td><td><span class="status-pill hired">Active</span></td></tr>
+              <tr><td>Eldoret National Polytechnic</td><td>1,860</td><td>Engineering</td><td>75%</td><td><span class="status-pill hired">Active</span></td></tr>
+              <tr><td>Mombasa Technical Training Institute</td><td>1,420</td><td>Business</td><td>69%</td><td><span class="status-pill hired">Active</span></td></tr>
+              <tr><td>Nyeri National Polytechnic</td><td>1,110</td><td>ICT</td><td>72%</td><td><span class="status-pill new">Onboarding</span></td></tr>
+              <tr><td>Kisumu National Polytechnic</td><td>980</td><td>Engineering</td><td>66%</td><td><span class="status-pill new">Onboarding</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/charts.js"></script>
+<script>
+  FMCharts.growthBarChart("adminGrowthChart",
+    ["Jan","Feb","Mar","Apr","May","Jun","Jul"],
+    [8200, 8900, 9500, 10200, 11100, 11900, 12480],
+    "#2563EB");
+
+  FMCharts.fieldDistributionChart("adminFieldChart", {
+    "ICT": 4680, "Engineering": 3120, "Business": 2340, "Creative": 1560, "Other": 780
+  });
+
+  FMCharts.growthBarChart("adminEmployerChart",
+    ["Jan","Feb","Mar","Apr","May","Jun","Jul"],
+    [210, 235, 255, 270, 295, 315, 340],
+    "#14B8A6");
+
+  FMCharts.employmentTrendsChart("adminEmploymentChart");
+</script>
+</body>
+</html>

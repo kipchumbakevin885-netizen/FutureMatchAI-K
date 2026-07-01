@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FutureMatch AI — AI Career Matching for TVET Students in Kenya</title>
+<meta name="description" content="FutureMatch AI connects TVET students in Kenya with careers, internships and learning paths matched to their skills and Kenya's job market.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Bootstrap 5 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- App CSS -->
+<link href="css/style.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loader-logo"><i class="fa-solid fa-diagram-project"></i> FutureMatch AI</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span>
+      <span class="brand-text">FutureMatch <span class="text-gradient">AI</span></span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link nav-link-custom active" href="#hero">Home</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-custom" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-custom" href="#how-it-works">How it Works</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-custom" href="#testimonials">Testimonials</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-custom" href="#team">Team</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-custom" href="#contact">Contact</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+        <button class="theme-toggle-btn" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+        <a href="login.html" class="btn btn-outline btn-sm">Log In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="hero-badge"><i class="fa-solid fa-sparkles"></i> AI-Powered Career Guidance</div>
+        <h1>Find the career the <span class="text-gradient">job market</span> is actually hiring for.</h1>
+        <p class="lead">FutureMatch AI matches TVET students in Kenya to careers, internships and learning paths based on real skills, real interests, and real labour-market demand — not guesswork.</p>
+        <div class="hero-cta">
+          <a href="register.html" class="btn btn-primary btn-lg">Start Your Match <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#how-it-works" class="btn btn-outline btn-lg">See How it Works</a>
+        </div>
+        <div class="hero-trust">
+          <div class="avatars">
+            <span>FW</span><span>BO</span><span>AH</span><span>PM</span>
+          </div>
+          <div><strong>12,000+</strong> <span class="text-muted">TVET students already matched</span></div>
+        </div>
+      </div>
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="hero-visual">
+          <div class="hero-card-main">
+            <div class="match-ring">
+              <div class="match-score-ring" style="width:90px;height:90px;">
+                <svg viewBox="0 0 120 120" width="90" height="90">
+                  <circle class="ring-bg" cx="60" cy="60" r="52" style="stroke:#E2E8F0;"></circle>
+                  <circle class="ring-fg" cx="60" cy="60" r="52" style="stroke:#2563EB;stroke-dasharray:326.7;stroke-dashoffset:55;"></circle>
+                </svg>
+                <div class="ring-label" style="color:#1E293B;">
+                  <span class="score" style="font-size:1.2rem;">83%</span>
+                </div>
+              </div>
+              <div>
+                <div class="fw-bold">Career Match Score</div>
+                <div class="text-muted" style="font-size:0.85rem;">Based on your skills &amp; interests</div>
+              </div>
+            </div>
+            <div class="skill-progress-item">
+              <div class="lbl-row"><span>Software Development</span><span>91%</span></div>
+              <div class="progress-track"><div class="fill" style="width:91%;"></div></div>
+            </div>
+            <div class="skill-progress-item mb-0">
+              <div class="lbl-row"><span>Data Analysis</span><span>76%</span></div>
+              <div class="progress-track"><div class="fill" style="width:76%;background:var(--gradient-accent);"></div></div>
+            </div>
+          </div>
+          <div class="hero-float-card card-1"><i class="fa-solid fa-briefcase text-primary"></i> 3 new internships</div>
+          <div class="hero-float-card card-2"><i class="fa-solid fa-graduation-cap" style="color:var(--secondary);"></i> Roadmap updated</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Strip -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 col-md-3 stat-item">
+        <div class="stat-number"><span data-counter="12480">0</span>+</div>
+        <div class="stat-label">Students Matched</div>
+      </div>
+      <div class="col-6 col-md-3 stat-item">
+        <div class="stat-number"><span data-counter="340">0</span>+</div>
+        <div class="stat-label">Employer Partners</div>
+      </div>
+      <div class="col-6 col-md-3 stat-item">
+        <div class="stat-number"><span data-counter="1860">0</span>+</div>
+        <div class="stat-label">Jobs &amp; Internships</div>
+      </div>
+      <div class="col-6 col-md-3 stat-item">
+        <div class="stat-number"><span data-counter="78">0</span>%</div>
+        <div class="stat-label">Placement Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Problem / Solution -->
+<section class="problem-solution">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-eyebrow">The Gap</span>
+      <h2 class="section-title">TVET graduates are talented. <br class="d-none d-md-block">The market just can't find them.</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-6 reveal">
+        <div class="ps-card problem">
+          <div class="ps-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <h4>The Problem</h4>
+          <p class="text-muted mb-0">Thousands of TVET students graduate every year without a clear path from classroom to career.</p>
+          <ul class="ps-list">
+            <li><i class="fa-solid fa-circle-xmark"></i> No visibility into which skills employers actually need</li>
+            <li><i class="fa-solid fa-circle-xmark"></i> Career guidance is generic, not personalised</li>
+            <li><i class="fa-solid fa-circle-xmark"></i> Internships and jobs are scattered across disconnected channels</li>
+            <li><i class="fa-solid fa-circle-xmark"></i> Students don't know which skills to build next</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6 reveal">
+        <div class="ps-card solution">
+          <div class="ps-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <h4>The FutureMatch Solution</h4>
+          <p class="text-muted mb-0">One AI-powered platform that turns a student's skills and interests into a concrete career plan.</p>
+          <ul class="ps-list">
+            <li><i class="fa-solid fa-circle-check"></i> AI-matched careers ranked by real fit, not guesswork</li>
+            <li><i class="fa-solid fa-circle-check"></i> Personalised learning roadmaps to close skill gaps</li>
+            <li><i class="fa-solid fa-circle-check"></i> A single place to find internships and jobs that match</li>
+            <li><i class="fa-solid fa-circle-check"></i> Live labour-market demand woven into every recommendation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-eyebrow">Platform Features</span>
+      <h2 class="section-title">Everything a student needs to launch a career</h2>
+      <p class="section-subtitle mx-auto">Built specifically for Kenya's TVET ecosystem — from skill assessment to first job offer.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+          <h4>AI Career Matching</h4>
+          <p>Get ranked career recommendations based on your skills, interests, course and assessment results.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-clipboard-question"></i></div>
+          <h4>Skill Assessment</h4>
+          <p>A quick interactive quiz that maps your strengths to real careers in Kenya's job market.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-route"></i></div>
+          <h4>Learning Roadmaps</h4>
+          <p>Step-by-step plans showing exactly which skills to learn next to reach your target career.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <h4>Jobs &amp; Internships</h4>
+          <p>Browse and bookmark opportunities filtered to match your recommended career paths.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-chart-pie"></i></div>
+          <h4>Market Insights</h4>
+          <p>See real-time demand, salary ranges and growth trends for every career on the platform.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-building-user"></i></div>
+          <h4>Employer Tools</h4>
+          <p>Employers post roles, review applicants and shortlist candidates with built-in analytics.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it Works -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-eyebrow">Simple Process</span>
+      <h2 class="section-title">From profile to placement in 4 steps</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-3 reveal">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h5>Create Your Profile</h5>
+          <p>Tell us your course, skills and interests when you register.</p>
+          <div class="step-connector d-none d-md-block"></div>
+        </div>
+      </div>
+      <div class="col-md-3 reveal">
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h5>Take the Assessment</h5>
+          <p>A short interactive quiz refines your career match.</p>
+          <div class="step-connector d-none d-md-block"></div>
+        </div>
+      </div>
+      <div class="col-md-3 reveal">
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h5>Get AI Recommendations</h5>
+          <p>See ranked careers, salaries, and a personalised roadmap.</p>
+          <div class="step-connector d-none d-md-block"></div>
+        </div>
+      </div>
+      <div class="col-md-3 reveal">
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h5>Apply &amp; Grow</h5>
+          <p>Browse matched jobs and internships, and track your progress.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-eyebrow">Student Stories</span>
+      <h2 class="section-title">Trusted by TVET students across Kenya</h2>
+    </div>
+    <div class="row g-4" id="testimonials-row"></div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="team-section" id="team">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-eyebrow">FutureMatch Labs</span>
+      <h2 class="section-title">The team behind FutureMatch AI</h2>
+      <p class="section-subtitle mx-auto">A small, focused team building career guidance technology for Kenya's TVET students.</p>
+    </div>
+    <div class="row g-4" id="team-row"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 mb-4 mb-lg-0 reveal">
+        <span class="section-eyebrow">FAQ</span>
+        <h2 class="section-title">Frequently asked questions</h2>
+        <p class="section-subtitle">Can't find what you're looking for? Reach out via our contact form below.</p>
+      </div>
+      <div class="col-lg-7 reveal">
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">Is FutureMatch AI free for students?</button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Yes. Registration, the skill assessment, career recommendations and job browsing are completely free for TVET students in Kenya.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">How does the AI matching actually work?</button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">We combine your skills, interests, course, and assessment answers to score every career on the platform, then rank the ones that fit you best against current market demand.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Can employers post jobs on the platform?</button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Yes. Employers get a dedicated dashboard to post roles, review applicants, shortlist candidates and track hiring analytics.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">Which institutions are supported?</button>
+            </h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">FutureMatch AI is built for TVET institutions across Kenya including National Polytechnics and Vocational Training Centres — you can add your institution during registration.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-5 reveal">
+        <span class="section-eyebrow">Get in Touch</span>
+        <h2 class="section-title">Let's talk about your career journey</h2>
+        <p class="section-subtitle mb-4">Have a question about the platform or want to partner with us? Send a message.</p>
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div><div class="fw-bold">Email</div><div class="text-muted">kipchumbakevin885@gmail.com</div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
+          <div><div class="fw-bold">Phone</div><div class="text-muted">0725 976 246</div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div><div class="fw-bold">Based in</div><div class="text-muted">Nairobi, Kenya</div></div>
+        </div>
+      </div>
+      <div class="col-lg-7 reveal">
+        <div class="contact-form-card">
+          <div id="contact-alert" class="alert alert-success d-none"></div>
+          <form onsubmit="return handleContactForm(event)">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" required placeholder="Jane Wanjiku">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" required placeholder="jane@example.com">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Subject</label>
+                <input type="text" class="form-control" required placeholder="How can we help?">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Message</label>
+                <textarea class="form-control" rows="4" required placeholder="Tell us more..."></textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand">
+          <span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span>
+          <span class="fw-bold text-white fs-5">FutureMatch AI</span>
+        </div>
+        <p class="text-secondary" style="font-size:0.9rem;">AI-powered career guidance connecting TVET students in Kenya to careers, internships and learning opportunities.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Platform</h6>
+        <a class="footer-link" href="#features">Features</a>
+        <a class="footer-link" href="#how-it-works">How it Works</a>
+        <a class="footer-link" href="careers.html">Careers</a>
+        <a class="footer-link" href="jobs.html">Jobs</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Account</h6>
+        <a class="footer-link" href="login.html">Log In</a>
+        <a class="footer-link" href="register.html">Register</a>
+        <a class="footer-link" href="employer.html">For Employers</a>
+        <a class="footer-link" href="admin.html">Admin</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Company</h6>
+        <a class="footer-link" href="#team">Our Team</a>
+        <a class="footer-link" href="#testimonials">Testimonials</a>
+        <a class="footer-link" href="#contact">Contact</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Contact</h6>
+        <a class="footer-link" href="mailto:kipchumbakevin885@gmail.com">kipchumbakevin885@gmail.com</a>
+        <a class="footer-link" href="tel:0725976246">0725 976 246</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 FutureMatch AI · FutureMatch Labs. All rights reserved.</div>
+  </div>
+</footer>
+
+<button id="back-to-top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  // Render testimonials
+  const testiRow = document.getElementById("testimonials-row");
+  TESTIMONIALS.forEach(t => {
+    testiRow.insertAdjacentHTML("beforeend", `
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="testimonial-card">
+          <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+          <p class="quote">"${t.quote}"</p>
+          <div class="testimonial-person">
+            <div class="testimonial-avatar">${t.avatar}</div>
+            <div><div class="name">${t.name}</div><div class="role">${t.role}</div></div>
+          </div>
+        </div>
+      </div>`);
+  });
+
+  // Render team
+  const teamRow = document.getElementById("team-row");
+  TEAM.forEach(m => {
+    teamRow.insertAdjacentHTML("beforeend", `
+      <div class="col-6 col-lg-2 col-md-4 reveal">
+        <div class="team-card">
+          <div class="team-avatar">${m.avatar}</div>
+          <h5>${m.name}</h5>
+          <p>${m.role}</p>
+        </div>
+      </div>`);
+  });
+
+  // Re-run reveal observer for dynamically injected cards
+  initScrollReveal();
+</script>
+</body>
+</html>

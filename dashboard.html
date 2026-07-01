@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — FutureMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/dashboard.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body class="app-body">
+
+<div id="loading-screen">
+  <div class="loader-logo"><i class="fa-solid fa-diagram-project"></i> FutureMatch AI</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="sidebar-overlay"></div>
+
+<div class="app-shell">
+  <!-- Sidebar -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span> FutureMatch AI
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html" class="active"><i class="fa-solid fa-grid-2"></i> Dashboard</a></li>
+      <li><a href="assessment.html"><i class="fa-solid fa-clipboard-question"></i> Skill Assessment</a></li>
+      <li><a href="careers.html"><i class="fa-solid fa-compass"></i> Career Matches</a></li>
+      <li><a href="jobs.html"><i class="fa-solid fa-briefcase"></i> Jobs &amp; Internships</a></li>
+      <li class="nav-section-label">Account</li>
+      <li><a href="#profileSection" onclick="document.getElementById('profileSection').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-user"></i> My Profile</a></li>
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Landing Page</a></li>
+      <li><a href="#" data-logout><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
+    </ul>
+    <div class="sidebar-footer-card">
+      <i class="fa-solid fa-sparkles" style="color:var(--accent);"></i>
+      <p class="mb-2 mt-1" style="font-size:0.8rem;color:var(--text-muted);">Retake the assessment for sharper matches.</p>
+      <a href="assessment.html" class="btn btn-primary btn-sm btn-block">Retake Quiz</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="app-main">
+    <header class="app-topbar">
+      <button class="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="topbar-search">
+        <i class="fa-solid fa-search"></i>
+        <input type="text" placeholder="Search careers, jobs, skills...">
+      </div>
+      <div class="topbar-actions">
+        <button class="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+        <button class="icon-btn" data-dropdown-toggle="notifPanel"><i class="fa-solid fa-bell"></i><span class="dot"></span></button>
+        <div id="notifPanel" class="dropdown-panel" style="display:none;">
+          <div class="dropdown-panel-header">Notifications</div>
+          <div class="dropdown-panel-body">
+            <div class="notif-item"><div class="notif-icon"><i class="fa-solid fa-briefcase"></i></div><div><div>New internship matches your profile: <strong>Machine Learning Intern</strong></div><div class="time">2 hours ago</div></div></div>
+            <div class="notif-item"><div class="notif-icon"><i class="fa-solid fa-chart-line"></i></div><div><div>Your Career Match Score increased by 4%</div><div class="time">1 day ago</div></div></div>
+            <div class="notif-item"><div class="notif-icon"><i class="fa-solid fa-graduation-cap"></i></div><div><div>New learning resource added to your roadmap</div><div class="time">3 days ago</div></div></div>
+          </div>
+        </div>
+        <div class="topbar-profile" data-dropdown-toggle="profilePanel">
+          <div class="topbar-avatar" id="topbarAvatar">S</div>
+          <i class="fa-solid fa-chevron-down text-muted" style="font-size:0.75rem;"></i>
+        </div>
+        <div id="profilePanel" class="dropdown-panel" style="display:none;">
+          <div class="dropdown-panel-header" id="profilePanelName">Student</div>
+          <a class="profile-menu-item" href="#profileSection" onclick="document.getElementById('profileSection').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-user"></i> My Profile</a>
+          <a class="profile-menu-item" href="jobs.html"><i class="fa-solid fa-bookmark"></i> Saved Jobs</a>
+          <a class="profile-menu-item" href="#" data-logout><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <!-- Welcome Banner -->
+      <div class="welcome-banner reveal">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h2 class="text-white mb-2" id="welcomeName">Welcome back!</h2>
+            <p class="text-white-50 mb-0" id="welcomeSub">Here's how your career match is shaping up today.</p>
+          </div>
+          <div class="col-lg-4 d-flex justify-content-lg-end mt-4 mt-lg-0">
+            <div class="d-flex align-items-center gap-3">
+              <div class="match-score-ring">
+                <svg viewBox="0 0 120 120" width="130" height="130">
+                  <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+                  <circle class="ring-fg" id="matchRing" cx="60" cy="60" r="52" style="stroke-dasharray:326.7; stroke-dashoffset:326.7;"></circle>
+                </svg>
+                <div class="ring-label">
+                  <span class="score" id="matchScoreText">0%</span>
+                  <span class="lbl">Match Score</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat tiles -->
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile">
+            <div class="stat-icon" style="background:var(--gradient-primary);"><i class="fa-solid fa-compass"></i></div>
+            <div><div class="stat-val" id="statCareers">0</div><div class="stat-lbl">Career Matches</div></div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile">
+            <div class="stat-icon" style="background:linear-gradient(135deg,#14B8A6,#2563EB);"><i class="fa-solid fa-briefcase"></i></div>
+            <div><div class="stat-val" id="statJobs">0</div><div class="stat-lbl">Matched Jobs</div></div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile">
+            <div class="stat-icon" style="background:linear-gradient(135deg,#F59E0B,#EF4444);"><i class="fa-solid fa-bookmark"></i></div>
+            <div><div class="stat-val" id="statSaved">0</div><div class="stat-lbl">Saved Jobs</div></div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile">
+            <div class="stat-icon" style="background:linear-gradient(135deg,#8B5CF6,#2563EB);"><i class="fa-solid fa-list-check"></i></div>
+            <div><div class="stat-val" id="statSkills">0</div><div class="stat-lbl">Skills Listed</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- Left column -->
+        <div class="col-lg-8">
+          <div class="widget-card mb-4 reveal">
+            <div class="widget-header"><h5><i class="fa-solid fa-brain text-primary me-2"></i>AI Recommendations</h5></div>
+            <div id="insightsList"></div>
+          </div>
+
+          <div class="widget-card mb-4 reveal">
+            <div class="widget-header d-flex justify-content-between align-items-center">
+              <h5><i class="fa-solid fa-compass text-primary me-2"></i>Recommended Careers</h5>
+              <a href="careers.html" class="btn btn-outline btn-sm">View All</a>
+            </div>
+            <div id="careerMiniList"></div>
+          </div>
+
+          <div class="widget-card reveal">
+            <div class="widget-header"><h5><i class="fa-solid fa-route text-primary me-2"></i>Learning Roadmap</h5></div>
+            <ul class="roadmap-track" id="roadmapList"></ul>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="col-lg-4">
+          <div class="widget-card mb-4 reveal">
+            <div class="widget-header"><h5><i class="fa-solid fa-briefcase text-primary me-2"></i>Internship Opportunities</h5></div>
+            <div id="internshipList"></div>
+            <a href="jobs.html" class="btn btn-outline btn-block btn-sm mt-2">Browse All Jobs</a>
+          </div>
+
+          <div class="widget-card mb-4 reveal">
+            <div class="widget-header"><h5><i class="fa-solid fa-chart-simple text-primary me-2"></i>Skills Progress</h5></div>
+            <div id="skillsProgressList"></div>
+          </div>
+
+          <div class="widget-card mb-4 reveal">
+            <div class="widget-header"><h5><i class="fa-solid fa-bookmark text-primary me-2"></i>Saved Jobs</h5></div>
+            <div id="savedJobsList"></div>
+          </div>
+
+          <div class="widget-card reveal" id="profileSection">
+            <div class="widget-header"><h5><i class="fa-solid fa-user text-primary me-2"></i>My Profile</h5></div>
+            <div class="text-center mb-3">
+              <div class="topbar-avatar mx-auto mb-2" style="width:64px;height:64px;font-size:1.3rem;" id="profileAvatarBig">S</div>
+              <h6 class="mb-0" id="profileNameBig">Student</h6>
+              <p class="text-muted mb-0" style="font-size:0.82rem;" id="profileEmailBig">student@example.com</p>
+            </div>
+            <ul class="list-unstyled" style="font-size:0.85rem;">
+              <li class="d-flex justify-content-between border-bottom py-2"><span class="text-muted">Institution</span><span class="fw-bold" id="profileInstitution">—</span></li>
+              <li class="d-flex justify-content-between border-bottom py-2"><span class="text-muted">Course</span><span class="fw-bold" id="profileCourse">—</span></li>
+              <li class="d-flex justify-content-between py-2"><span class="text-muted">Skills</span><span class="fw-bold" id="profileSkillsCount">0</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<button id="back-to-top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/app.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

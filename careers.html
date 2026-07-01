@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Matches — FutureMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/dashboard.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body class="app-body">
+
+<div id="loading-screen">
+  <div class="loader-logo"><i class="fa-solid fa-diagram-project"></i> FutureMatch AI</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="sidebar-overlay"></div>
+
+<div class="app-shell">
+  <aside class="app-sidebar">
+    <div class="sidebar-brand"><span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span> FutureMatch AI</div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html"><i class="fa-solid fa-grid-2"></i> Dashboard</a></li>
+      <li><a href="assessment.html"><i class="fa-solid fa-clipboard-question"></i> Skill Assessment</a></li>
+      <li><a href="careers.html" class="active"><i class="fa-solid fa-compass"></i> Career Matches</a></li>
+      <li><a href="jobs.html"><i class="fa-solid fa-briefcase"></i> Jobs &amp; Internships</a></li>
+      <li class="nav-section-label">Account</li>
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Landing Page</a></li>
+      <li><a href="#" data-logout><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
+    </ul>
+  </aside>
+
+  <div class="app-main">
+    <header class="app-topbar">
+      <button class="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="fw-bold">Career Matches</div>
+      <div class="topbar-actions">
+        <button class="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-7">
+          <div class="chart-card h-100">
+            <h5 class="mb-3"><i class="fa-solid fa-chart-bar text-primary me-2"></i>Your Top Career Matches</h5>
+            <div style="height:280px;"><canvas id="careerMatchChart"></canvas></div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="chart-card h-100">
+            <h5 class="mb-3"><i class="fa-solid fa-chart-pie text-primary me-2"></i>Your Skills Distribution</h5>
+            <div style="height:280px;"><canvas id="skillsChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-3">
+        <h5 class="mb-0">All Career Recommendations</h5>
+        <div class="filter-bar mb-0" id="fieldFilter">
+          <div class="chip active" data-field="All">All Fields</div>
+          <div class="chip" data-field="ICT">ICT</div>
+          <div class="chip" data-field="Engineering">Engineering</div>
+          <div class="chip" data-field="Business">Business</div>
+          <div class="chip" data-field="Creative">Creative</div>
+        </div>
+      </div>
+
+      <div class="row g-4" id="careerGrid"></div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/app.js"></script>
+<script src="js/charts.js"></script>
+<script>
+  requireAuth();
+  const profile = FMAuth.getUser();
+  let allCareers = FutureMatchAI_Engine.recommendCareers(profile);
+
+  // Charts
+  FMCharts.careerMatchChart("careerMatchChart", allCareers.slice(0, 6));
+  const skillCounts = {};
+  (profile.skills || []).forEach(s => { skillCounts[s] = Math.floor(Math.random() * 30) + 60; });
+  if (!Object.keys(skillCounts).length) skillCounts["Problem Solving"] = 70;
+  FMCharts.skillsDistributionChart("skillsChart", skillCounts);
+
+  function renderCareerGrid(field) {
+    const grid = document.getElementById("careerGrid");
+    const filtered = field === "All" ? allCareers : allCareers.filter(c => c.field === field);
+    grid.innerHTML = filtered.map(c => `
+      <div class="col-md-6 col-lg-4 reveal visible">
+        <div class="career-full-card">
+          <div class="top-row">
+            <div class="career-icon-lg"><i class="${c.icon}"></i></div>
+            <div class="match-badge-lg">${c.matchScore}%</div>
+          </div>
+          <h5>${c.title}</h5>
+          <p class="desc">${c.description}</p>
+          <div class="skill-tag-row">
+            ${c.skills.slice(0, 4).map(s => `<span class="skill-tag">${s}</span>`).join("")}
+          </div>
+          <div class="mb-2" style="font-size:0.85rem;">
+            <strong>Est. Salary:</strong> <span class="text-muted">${c.salaryRange}</span>
+          </div>
+          <div class="mb-2" style="font-size:0.85rem;">
+            <strong>Top Resource:</strong> <span class="text-muted">${c.resources[0].name}</span>
+          </div>
+          <div class="career-meta-row">
+            <span><i class="fa-solid fa-fire" style="color:var(--accent);"></i> ${c.demand}% demand</span>
+            <span class="badge-soft">${c.field}</span>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  renderCareerGrid("All");
+
+  document.querySelectorAll("#fieldFilter .chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      document.querySelectorAll("#fieldFilter .chip").forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      renderCareerGrid(chip.dataset.field);
+    });
+  });
+</script>
+</body>
+</html>

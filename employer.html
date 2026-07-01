@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employer Dashboard — FutureMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/dashboard.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body class="app-body">
+
+<div id="loading-screen">
+  <div class="loader-logo"><i class="fa-solid fa-diagram-project"></i> FutureMatch AI</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="sidebar-overlay"></div>
+
+<div class="app-shell">
+  <aside class="app-sidebar">
+    <div class="sidebar-brand"><span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span> FutureMatch AI</div>
+    <ul class="sidebar-nav">
+      <li><a href="employer.html" class="active"><i class="fa-solid fa-grid-2"></i> Overview</a></li>
+      <li><a href="#postJob"><i class="fa-solid fa-plus"></i> Post a Job</a></li>
+      <li><a href="#applicants"><i class="fa-solid fa-users"></i> Applicants</a></li>
+      <li><a href="#analytics"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+      <li class="nav-section-label">Account</li>
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Landing Page</a></li>
+      <li><a href="#" data-logout><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
+    </ul>
+  </aside>
+
+  <div class="app-main">
+    <header class="app-topbar">
+      <button class="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="fw-bold">Employer Dashboard</div>
+      <div class="topbar-actions">
+        <button class="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+        <div class="topbar-profile">
+          <div class="topbar-avatar">TT</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <div class="welcome-banner reveal">
+        <h2 class="text-white mb-2">Welcome back, Twiga Tech Solutions</h2>
+        <p class="text-white-50 mb-0">Manage your job postings, review applicants and track your hiring performance.</p>
+      </div>
+
+      <!-- Stat tiles -->
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile"><div class="stat-icon" style="background:var(--gradient-primary);"><i class="fa-solid fa-briefcase"></i></div><div><div class="stat-val">6</div><div class="stat-lbl">Active Job Posts</div></div></div>
+        </div>
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile"><div class="stat-icon" style="background:linear-gradient(135deg,#14B8A6,#2563EB);"><i class="fa-solid fa-users"></i></div><div><div class="stat-val">128</div><div class="stat-lbl">Total Applicants</div></div></div>
+        </div>
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile"><div class="stat-icon" style="background:linear-gradient(135deg,#F59E0B,#EF4444);"><i class="fa-solid fa-star"></i></div><div><div class="stat-val">24</div><div class="stat-lbl">Shortlisted</div></div></div>
+        </div>
+        <div class="col-6 col-lg-3 reveal">
+          <div class="stat-tile"><div class="stat-icon" style="background:linear-gradient(135deg,#8B5CF6,#2563EB);"><i class="fa-solid fa-handshake"></i></div><div><div class="stat-val">9</div><div class="stat-lbl">Hired</div></div></div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4" id="analytics">
+        <div class="col-lg-8">
+          <div class="chart-card h-100">
+            <h5 class="mb-3"><i class="fa-solid fa-chart-line text-primary me-2"></i>Applications Over Time</h5>
+            <div style="height:260px;"><canvas id="employerTrendChart"></canvas></div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="chart-card h-100">
+            <h5 class="mb-3"><i class="fa-solid fa-chart-pie text-primary me-2"></i>Applicants by Field</h5>
+            <div style="height:260px;"><canvas id="employerFieldChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post a Job -->
+      <div class="widget-card mb-4" id="postJob">
+        <div class="widget-header"><h5><i class="fa-solid fa-plus text-primary me-2"></i>Post a New Job</h5></div>
+        <form id="postJobForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Job Title</label>
+              <input type="text" class="form-control" placeholder="e.g. Backend Developer" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Job Type</label>
+              <select class="form-select" required>
+                <option>Full-time</option><option>Internship</option><option>Part-time</option><option>Apprenticeship</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Location</label>
+              <input type="text" class="form-control" placeholder="e.g. Nairobi" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Salary Range</label>
+              <input type="text" class="form-control" placeholder="e.g. KES 60,000 – 90,000" required>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Job Description</label>
+              <textarea class="form-control" rows="3" placeholder="Describe the role and requirements..." required></textarea>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Publish Job</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Applicants -->
+      <div class="widget-card" id="applicants">
+        <div class="widget-header d-flex justify-content-between align-items-center">
+          <h5><i class="fa-solid fa-users text-primary me-2"></i>Recent Applicants</h5>
+        </div>
+        <div class="table-responsive">
+          <table class="table data-table mb-0">
+            <thead><tr><th>Candidate</th><th>Applied For</th><th>Match Score</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="applicantsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/charts.js"></script>
+<script>
+  const APPLICANTS = [
+    { name: "Faith Wanjiru", avatar: "FW", role: "Junior Frontend Developer", score: 92, status: "shortlisted" },
+    { name: "Brian Otieno", avatar: "BO", role: "Backend Developer (Node.js)", score: 87, status: "new" },
+    { name: "Amina Hassan", avatar: "AH", role: "Junior Frontend Developer", score: 78, status: "new" },
+    { name: "Peter Mwangi", avatar: "PM", role: "Backend Developer (Node.js)", score: 95, status: "hired" },
+    { name: "Grace Nyambura", avatar: "GN", role: "Junior Frontend Developer", score: 64, status: "rejected" },
+    { name: "Samuel Kiprop", avatar: "SK", role: "Backend Developer (Node.js)", score: 81, status: "shortlisted" }
+  ];
+
+  function renderApplicants() {
+    const tbody = document.getElementById("applicantsTable");
+    tbody.innerHTML = APPLICANTS.map((a, i) => `
+      <tr>
+        <td><div class="d-flex align-items-center gap-2"><div class="job-logo-sm">${a.avatar}</div>${a.name}</div></td>
+        <td>${a.role}</td>
+        <td><strong>${a.score}%</strong></td>
+        <td><span class="status-pill ${a.status}">${a.status.charAt(0).toUpperCase() + a.status.slice(1)}</span></td>
+        <td>
+          <select class="form-select form-select-sm" style="width:140px;" onchange="updateStatus(${i}, this.value)">
+            <option value="new" ${a.status==="new"?"selected":""}>New</option>
+            <option value="shortlisted" ${a.status==="shortlisted"?"selected":""}>Shortlisted</option>
+            <option value="hired" ${a.status==="hired"?"selected":""}>Hired</option>
+            <option value="rejected" ${a.status==="rejected"?"selected":""}>Rejected</option>
+          </select>
+        </td>
+      </tr>
+    `).join("");
+  }
+  function updateStatus(index, value) {
+    APPLICANTS[index].status = value;
+    renderApplicants();
+  }
+  renderApplicants();
+
+  FMCharts.employmentTrendsChart("employerTrendChart");
+  FMCharts.fieldDistributionChart("employerFieldChart", { "Frontend": 42, "Backend": 38, "Design": 20, "Data": 28 });
+
+  document.getElementById("postJobForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    alert("Your job has been posted successfully and is now visible to matched students!");
+    this.reset();
+  });
+</script>
+</body>
+</html>

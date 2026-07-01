@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In — FutureMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loader-logo"><i class="fa-solid fa-diagram-project"></i> FutureMatch AI</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="auth-wrapper">
+  <div class="col-lg-6 auth-visual d-none d-lg-flex">
+    <div class="content">
+      <a href="index.html" class="d-inline-flex align-items-center gap-2 text-white text-decoration-none mb-5 fs-5 fw-bold">
+        <i class="fa-solid fa-diagram-project"></i> FutureMatch AI
+      </a>
+      <h1 class="text-white mb-3" style="font-size:2.4rem;">Welcome back to your career journey.</h1>
+      <p class="text-white-50 fs-5 mb-5">Log in to view your latest AI-matched careers, saved jobs and learning roadmap.</p>
+      <div class="d-flex gap-4">
+        <div>
+          <div class="fs-3 fw-bold text-white">12,480+</div>
+          <div class="text-white-50" style="font-size:0.85rem;">Students Matched</div>
+        </div>
+        <div>
+          <div class="fs-3 fw-bold text-white">78%</div>
+          <div class="text-white-50" style="font-size:0.85rem;">Placement Rate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 auth-form-side w-100">
+    <div class="auth-card">
+      <div class="logo-row d-lg-none">
+        <span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span>
+        <span class="fw-bold fs-5">FutureMatch AI</span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 class="mb-1">Log in to your account</h2>
+          <p class="text-muted mb-0">Continue where you left off.</p>
+        </div>
+        <button class="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+
+      <div class="auth-tabs">
+        <a href="login.html" class="active">Log In</a>
+        <a href="register.html">Register</a>
+      </div>
+
+      <div id="login-alert" class="alert alert-danger d-none"></div>
+
+      <form id="loginForm">
+        <div class="mb-3">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="loginEmail" class="form-control" placeholder="you@example.com" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required minlength="4">
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+            <label class="form-check-label" for="rememberMe">Remember me</label>
+          </div>
+          <a href="#" class="text-decoration-none" style="font-size:0.85rem;color:var(--primary);font-weight:600;">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Log In <i class="fa-solid fa-arrow-right"></i></button>
+      </form>
+
+      <div class="divider-text">or continue with</div>
+      <button class="social-auth-btn"><i class="fa-brands fa-google" style="color:#EA4335;"></i> Continue with Google</button>
+      <button class="social-auth-btn"><i class="fa-brands fa-facebook" style="color:#1877F2;"></i> Continue with Facebook</button>
+
+      <p class="text-center text-muted mt-4" style="font-size:0.9rem;">
+        New to FutureMatch AI? <a href="register.html" class="fw-bold" style="color:var(--primary);">Create an account</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const alertBox = document.getElementById("login-alert");
+
+    const existing = FMAuth.getUser();
+
+    // If a registered profile exists and email matches, log them in.
+    // Otherwise create a lightweight session so the demo dashboard still works.
+    if (existing && existing.email && existing.email.toLowerCase() === email.toLowerCase()) {
+      FMAuth.updateUser({ loggedIn: true });
+    } else if (password.length < 4) {
+      alertBox.textContent = "Password must be at least 4 characters.";
+      alertBox.classList.remove("d-none");
+      return;
+    } else {
+      FMAuth.saveUser({
+        name: email.split("@")[0].replace(/[._]/g, " "),
+        email: email,
+        institution: "Nairobi National Polytechnic",
+        course: "ICT",
+        skills: ["JavaScript", "Problem Solving", "Excel"],
+        interests: ["Technology", "Innovation"],
+        loggedIn: true
+      });
+    }
+    window.location.href = "dashboard.html";
+  });
+</script>
+</body>
+</html>

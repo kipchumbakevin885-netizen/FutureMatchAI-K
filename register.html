@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — FutureMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/dashboard.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loader-logo"><i class="fa-solid fa-diagram-project"></i> FutureMatch AI</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="auth-wrapper">
+  <div class="col-lg-5 auth-visual d-none d-lg-flex">
+    <div class="content">
+      <a href="index.html" class="d-inline-flex align-items-center gap-2 text-white text-decoration-none mb-5 fs-5 fw-bold">
+        <i class="fa-solid fa-diagram-project"></i> FutureMatch AI
+      </a>
+      <h1 class="text-white mb-3" style="font-size:2.2rem;">Your career journey starts with a profile.</h1>
+      <p class="text-white-50 fs-5 mb-5">Tell us about yourself so our AI can find careers, internships and learning paths built for you.</p>
+      <ul class="list-unstyled text-white-50" style="font-size:0.95rem;">
+        <li class="mb-3"><i class="fa-solid fa-circle-check text-white me-2"></i> Free forever for students</li>
+        <li class="mb-3"><i class="fa-solid fa-circle-check text-white me-2"></i> Takes less than 3 minutes</li>
+        <li class="mb-3"><i class="fa-solid fa-circle-check text-white me-2"></i> Instant AI career recommendations</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-7 auth-form-side w-100">
+    <div class="auth-card" style="max-width:560px;">
+      <div class="logo-row d-lg-none">
+        <span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span>
+        <span class="fw-bold fs-5">FutureMatch AI</span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 class="mb-1">Create your student profile</h2>
+          <p class="text-muted mb-0">Step <span id="stepIndicatorText">1</span> of 3</p>
+        </div>
+        <button class="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+
+      <div class="step-indicator">
+        <div class="dot active" id="dot1"></div>
+        <div class="dot" id="dot2"></div>
+        <div class="dot" id="dot3"></div>
+      </div>
+
+      <form id="registerForm">
+        <!-- Step 1: Basic info -->
+        <div class="form-step active" id="step1">
+          <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="regName" class="form-control" placeholder="Jane Wanjiku" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="regEmail" class="form-control" placeholder="you@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" id="regPhone" class="form-control" placeholder="07XX XXX XXX" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Password</label>
+            <input type="password" id="regPassword" class="form-control" placeholder="Create a password" required minlength="4">
+          </div>
+          <button type="button" class="btn btn-primary btn-block" onclick="goToStep(2)">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <!-- Step 2: Institution & Course -->
+        <div class="form-step" id="step2">
+          <div class="mb-3">
+            <label class="form-label">Institution</label>
+            <input type="text" id="regInstitution" class="form-control" placeholder="e.g. Kabete National Polytechnic" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Course of Study</label>
+            <select id="regCourse" class="form-select" required>
+              <option value="">Select your course</option>
+              <option>ICT / Computer Studies</option>
+              <option>Electrical Engineering</option>
+              <option>Mechanical Engineering</option>
+              <option>Business Studies</option>
+              <option>Design & Media</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline btn-block" onclick="goToStep(1)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button type="button" class="btn btn-primary btn-block" onclick="goToStep(3)">Continue <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Step 3: Skills & Interests -->
+        <div class="form-step" id="step3">
+          <div class="mb-4">
+            <label class="form-label">Your Skills <span class="text-muted fw-normal">(select all that apply)</span></label>
+            <div class="chip-select" id="skillChips"></div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Your Interests <span class="text-muted fw-normal">(select all that apply)</span></label>
+            <div class="chip-select" id="interestChips"></div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline btn-block" onclick="goToStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button type="submit" class="btn btn-primary btn-block">Create Account <i class="fa-solid fa-check"></i></button>
+          </div>
+        </div>
+      </form>
+
+      <p class="text-center text-muted mt-4" style="font-size:0.9rem;">
+        Already have an account? <a href="login.html" class="fw-bold" style="color:var(--primary);">Log in</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  // Populate skill & interest chips from data.js
+  const skillChipsEl = document.getElementById("skillChips");
+  SKILL_OPTIONS.forEach(s => skillChipsEl.insertAdjacentHTML("beforeend", `<div class="chip" data-value="${s}">${s}</div>`));
+
+  const interestChipsEl = document.getElementById("interestChips");
+  INTEREST_OPTIONS.forEach(i => interestChipsEl.insertAdjacentHTML("beforeend", `<div class="chip" data-value="${i}">${i}</div>`));
+
+  initChipGroup("#skillChips");
+  initChipGroup("#interestChips");
+
+  function goToStep(step) {
+    // Basic validation for step 1
+    if (step === 2) {
+      const name = document.getElementById("regName").value.trim();
+      const email = document.getElementById("regEmail").value.trim();
+      const phone = document.getElementById("regPhone").value.trim();
+      const password = document.getElementById("regPassword").value;
+      if (!name || !email || !phone || password.length < 4) {
+        alert("Please fill in all fields. Password must be at least 4 characters.");
+        return;
+      }
+    }
+    if (step === 3) {
+      const institution = document.getElementById("regInstitution").value.trim();
+      const course = document.getElementById("regCourse").value;
+      if (!institution || !course) {
+        alert("Please complete your institution and course.");
+        return;
+      }
+    }
+    document.querySelectorAll(".form-step").forEach(el => el.classList.remove("active"));
+    document.getElementById("step" + step).classList.add("active");
+    document.querySelectorAll(".step-indicator .dot").forEach((dot, i) => {
+      dot.classList.toggle("active", i < step);
+    });
+    document.getElementById("stepIndicatorText").textContent = step;
+  }
+
+  document.getElementById("registerForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const skills = getActiveChips("#skillChips");
+    const interests = getActiveChips("#interestChips");
+    if (!skills.length || !interests.length) {
+      alert("Please select at least one skill and one interest.");
+      return;
+    }
+    FMAuth.saveUser({
+      name: document.getElementById("regName").value.trim(),
+      email: document.getElementById("regEmail").value.trim(),
+      phone: document.getElementById("regPhone").value.trim(),
+      institution: document.getElementById("regInstitution").value.trim(),
+      course: document.getElementById("regCourse").value,
+      skills: skills,
+      interests: interests,
+      loggedIn: true
+    });
+    window.location.href = "assessment.html";
+  });
+</script>
+</body>
+</html>

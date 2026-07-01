@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jobs & Internships — FutureMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/dashboard.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body class="app-body">
+
+<div id="loading-screen">
+  <div class="loader-logo"><i class="fa-solid fa-diagram-project"></i> FutureMatch AI</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="sidebar-overlay"></div>
+
+<div class="app-shell">
+  <aside class="app-sidebar">
+    <div class="sidebar-brand"><span class="brand-icon"><i class="fa-solid fa-diagram-project"></i></span> FutureMatch AI</div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html"><i class="fa-solid fa-grid-2"></i> Dashboard</a></li>
+      <li><a href="assessment.html"><i class="fa-solid fa-clipboard-question"></i> Skill Assessment</a></li>
+      <li><a href="careers.html"><i class="fa-solid fa-compass"></i> Career Matches</a></li>
+      <li><a href="jobs.html" class="active"><i class="fa-solid fa-briefcase"></i> Jobs &amp; Internships</a></li>
+      <li class="nav-section-label">Account</li>
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Landing Page</a></li>
+      <li><a href="#" data-logout><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
+    </ul>
+  </aside>
+
+  <div class="app-main">
+    <header class="app-topbar">
+      <button class="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="fw-bold">Jobs &amp; Internships</div>
+      <div class="topbar-actions">
+        <button class="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <div class="widget-card mb-4">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-5">
+            <label class="form-label">Search</label>
+            <div class="topbar-search" style="max-width:none;">
+              <i class="fa-solid fa-search"></i>
+              <input type="text" id="jobSearchInput" placeholder="Search job title or company...">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Job Type</label>
+            <select class="form-select" id="jobTypeFilter">
+              <option value="All">All Types</option>
+              <option>Full-time</option>
+              <option>Internship</option>
+              <option>Part-time</option>
+              <option>Apprenticeship</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Location</label>
+            <select class="form-select" id="jobLocationFilter">
+              <option value="All">All Locations</option>
+              <option>Nairobi</option>
+              <option>Mombasa</option>
+              <option>Kisumu</option>
+              <option>Nakuru</option>
+              <option>Eldoret</option>
+              <option>Remote</option>
+            </select>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-primary btn-block" onclick="renderJobs()"><i class="fa-solid fa-filter"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0"><span id="jobCount">0</span> opportunities found</h5>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="matchOnlyToggle">
+          <label class="form-check-label" for="matchOnlyToggle" style="font-size:0.85rem;">Show matched careers only</label>
+        </div>
+      </div>
+
+      <div id="jobsList"></div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/app.js"></script>
+<script>
+  requireAuth();
+  const profile = FMAuth.getUser();
+  const matchedCareerIds = FutureMatchAI_Engine.recommendCareers(profile, 5).map(c => c.id);
+
+  function getSavedIds() {
+    return JSON.parse(localStorage.getItem("futurematch_saved_jobs") || "[]");
+  }
+  function toggleSave(jobId) {
+    let saved = getSavedIds();
+    if (saved.includes(jobId)) saved = saved.filter(id => id !== jobId);
+    else saved.push(jobId);
+    localStorage.setItem("futurematch_saved_jobs", JSON.stringify(saved));
+    renderJobs();
+  }
+  function applyToJob(title) {
+    alert(`Your application for "${title}" has been submitted! The employer will review your FutureMatch profile.`);
+  }
+
+  function renderJobs() {
+    const search = document.getElementById("jobSearchInput").value.toLowerCase();
+    const type = document.getElementById("jobTypeFilter").value;
+    const location = document.getElementById("jobLocationFilter").value;
+    const matchOnly = document.getElementById("matchOnlyToggle").checked;
+    const saved = getSavedIds();
+
+    let filtered = JOBS.filter(j => {
+      const matchesSearch = j.title.toLowerCase().includes(search) || j.company.toLowerCase().includes(search);
+      const matchesType = type === "All" || j.type === type;
+      const matchesLocation = location === "All" || j.location === location;
+      const matchesCareer = !matchOnly || matchedCareerIds.includes(j.field);
+      return matchesSearch && matchesType && matchesLocation && matchesCareer;
+    });
+
+    document.getElementById("jobCount").textContent = filtered.length;
+    const list = document.getElementById("jobsList");
+
+    if (!filtered.length) {
+      list.innerHTML = `<div class="widget-card text-center py-5"><i class="fa-solid fa-magnifying-glass fa-2x text-muted mb-3"></i><p class="text-muted mb-0">No jobs match your filters. Try adjusting your search.</p></div>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map(j => {
+      const isSaved = saved.includes(j.id);
+      const isMatched = matchedCareerIds.includes(j.field);
+      return `
+      <div class="job-card">
+        <div class="job-top">
+          <div class="job-logo">${j.logo}</div>
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between flex-wrap gap-2">
+              <div>
+                <h6>${j.title} ${isMatched ? '<span class="badge-soft teal ms-1">Matched</span>' : ""}</h6>
+                <div class="company">${j.company}</div>
+              </div>
+              <span class="badge-soft">${j.type}</span>
+            </div>
+          </div>
+        </div>
+        <div class="job-meta">
+          <span><i class="fa-solid fa-location-dot"></i> ${j.location}</span>
+          <span><i class="fa-solid fa-sack-dollar"></i> ${j.salary}</span>
+          <span><i class="fa-solid fa-clock"></i> Posted ${j.posted}</span>
+        </div>
+        <div class="job-actions">
+          <button class="btn btn-primary btn-sm" onclick="applyToJob('${j.title.replace(/'/g, "\\'")}')"><i class="fa-solid fa-paper-plane"></i> Apply Now</button>
+          <button class="bookmark-btn ${isSaved ? "active" : ""}" onclick="toggleSave(${j.id})" title="Save job">
+            <i class="fa-solid fa-bookmark"></i>
+          </button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  document.getElementById("jobSearchInput").addEventListener("input", renderJobs);
+  document.getElementById("jobTypeFilter").addEventListener("change", renderJobs);
+  document.getElementById("jobLocationFilter").addEventListener("change", renderJobs);
+  document.getElementById("matchOnlyToggle").addEventListener("change", renderJobs);
+
+  renderJobs();
+</script>
+</body>
+</html>
